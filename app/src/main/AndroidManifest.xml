@@ -12,13 +12,13 @@
         android:theme="@style/Theme.DASIX"
         tools:targetApi="31">
         <activity
-            android:name=".RegistrarMateriales"
+            android:name=".RegistrarProducto"
             android:exported="false" />
         <activity
-            android:name=".MostrarMateriales"
+            android:name=".MostrarProductos"
             android:exported="false" />
         <activity
-            android:name=".ListarMateriales"
+            android:name=".ListarProductos"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

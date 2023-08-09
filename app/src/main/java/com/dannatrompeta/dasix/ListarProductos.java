@@ -11,13 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
-public class ListarMateriales extends AppCompatActivity {
+public class ListarProductos extends AppCompatActivity {
     ListView listViewMateriales;
     ArrayList<String> listaInformacion;
-    ArrayList<Material> listaMaterial;
+    ArrayList<Producto> listaMaterial;
     SQLUtilities conexion;
 
     @Override
@@ -43,7 +41,7 @@ public class ListarMateriales extends AppCompatActivity {
                 informacion += "Cantidad: "+ listaMaterial.get(pos).getCantidad() + "\n";
                 informacion += "Tipo: "+ listaMaterial.get(pos).getTipo() + "\n";
 
-                Toast.makeText(ListarMateriales.this,informacion, Toast.LENGTH_LONG).show();
+                Toast.makeText(ListarProductos.this,informacion, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -51,13 +49,13 @@ public class ListarMateriales extends AppCompatActivity {
 
     private void consultarListaMateriales() {
         SQLiteDatabase db = conexion.getReadableDatabase();
-        Material material = null;
-        listaMaterial = new ArrayList<Material>();
+        Producto material = null;
+        listaMaterial = new ArrayList<Producto>();
 
         Cursor cursor = db.rawQuery("SELECT * FROM Material", null);
 
         while (cursor.moveToNext()){
-            material = new Material();
+            material = new Producto();
             material.setId(cursor.getString(0));
             material.setNombre(cursor.getString(1));
             material.setCantidad(cursor.getString(2));

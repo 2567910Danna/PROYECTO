@@ -1,16 +1,16 @@
 package com.dannatrompeta.dasix;
 
-public class Material {
+public class Producto {
 
     public String id, nombre, cantidad, tipo;
 
 
 
-    public Material() {
+    public Producto() {
 
     }
 
-    public Material(String id, String nombre, String cantidad, String tipo) {
+    public Producto(String id, String nombre, String cantidad, String tipo) {
         this.id = id;
         this.nombre = nombre;
         this.cantidad = cantidad;

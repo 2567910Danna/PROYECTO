@@ -3,7 +3,6 @@ package com.dannatrompeta.dasix;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,15 +40,15 @@ import android.widget.Button;
             int id = item.getItemId();
 
             if (id == R.id.opRegistrar){
-                Intent intent = new Intent( MainActivity.this, RegistrarMateriales.class);
+                Intent intent = new Intent( MainActivity.this, RegistrarProducto.class);
                 startActivity(intent);
 
             }else if ( id == R.id.opMostrar ){
-                Intent intent = new Intent( MainActivity.this, MostrarMateriales.class);
+                Intent intent = new Intent( MainActivity.this, MostrarProductos.class);
                 startActivity(intent);
 
             }else if(id == R.id.opListar){
-                Intent intent = new Intent( MainActivity.this, ListarMateriales.class);
+                Intent intent = new Intent( MainActivity.this, ListarProductos.class);
                 startActivity(intent);
 
             }else{
@@ -64,15 +63,15 @@ import android.widget.Button;
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.btnReg:
-                    Intent in = new Intent( MainActivity.this, RegistrarMateriales.class);
+                    Intent in = new Intent( MainActivity.this, RegistrarProducto.class);
                     startActivity(in);
                     break;
                 case R.id.btnBu:
-                    Intent in2 = new Intent( MainActivity.this, MostrarMateriales.class);
+                    Intent in2 = new Intent( MainActivity.this, MostrarProductos.class);
                     startActivity(in2);
                     break;
                 case R.id.btnLi:
-                    Intent in3 = new Intent( MainActivity.this, ListarMateriales.class);
+                    Intent in3 = new Intent( MainActivity.this, ListarProductos.class);
                     startActivity(in3);
                     break;
             }
