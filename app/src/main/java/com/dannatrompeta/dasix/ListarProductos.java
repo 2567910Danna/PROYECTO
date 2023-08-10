@@ -1,7 +1,10 @@
 package com.dannatrompeta.dasix;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -13,9 +16,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 public class ListarProductos extends AppCompatActivity {
-    ListView listViewMateriales;
+    ListView listViewProducto;
     ArrayList<String> listaInformacion;
-    ArrayList<Producto> listaMaterial;
+    ArrayList<Producto> listaProducto;
     SQLUtilities conexion;
 
     @Override
@@ -24,24 +27,44 @@ public class ListarProductos extends AppCompatActivity {
         setContentView(R.layout.activity_listar);
 
 
-        listViewMateriales = (ListView) findViewById(R.id.listViewPersonas);
+        listViewProducto = (ListView) findViewById(R.id.listViewPersonas);
 
 
         conexion = new SQLUtilities(this, "Material", null,1);
 
         consultarListaMateriales();
         ArrayAdapter adaptador = new ArrayAdapter(this,android.R.layout.simple_list_item_1,listaInformacion);
-        listViewMateriales.setAdapter(adaptador);
+        listViewProducto.setAdapter(adaptador);
 
-        listViewMateriales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewProducto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                String informacion = "Id: " + listaMaterial.get(pos).getId() + "\n";
-                informacion += "Nombre: "+ listaMaterial.get(pos).getNombre() + "\n";
-                informacion += "Cantidad: "+ listaMaterial.get(pos).getCantidad() + "\n";
-                informacion += "Tipo: "+ listaMaterial.get(pos).getTipo() + "\n";
+                Producto productoSeleccionado = (Producto) adapterView.getItemAtPosition(pos);
+                // Creas el AlertDialog
+                CharSequence[] opciones = new CharSequence[]{"Eliminar", "Cancelar"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListarProductos.this);
+                builder.setTitle("Selecciona una opción");
+                builder.setItems(opciones,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // The 'which' argument contains the index position
+                                // of the selected item
+                                Intent intento;
+                                switch (which) {
+                                    case 0:
+                                        //Eliminar
+                                        productoSeleccionado.eliminar(ListarProductos.this);
+                                        break;
+                                    case 1:
+                                        // Cancelar
+                                        dialog.dismiss();
+                                        break;
+                                }
+                            }
+                        });
+                builder.show();
 
-                Toast.makeText(ListarProductos.this,informacion, Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -50,18 +73,18 @@ public class ListarProductos extends AppCompatActivity {
     private void consultarListaMateriales() {
         SQLiteDatabase db = conexion.getReadableDatabase();
         Producto material = null;
-        listaMaterial = new ArrayList<Producto>();
+        listaProducto = new ArrayList<Producto>();
 
         Cursor cursor = db.rawQuery("SELECT * FROM Material", null);
 
         while (cursor.moveToNext()){
             material = new Producto();
-            material.setId(cursor.getString(0));
+            material.setId(cursor.getInt(0));
             material.setNombre(cursor.getString(1));
             material.setCantidad(cursor.getString(2));
             material.setTipo(cursor.getString(3));
 
-            listaMaterial.add(material);
+            listaProducto.add(material);
 
         }
         obtenerLista();
@@ -73,8 +96,8 @@ public class ListarProductos extends AppCompatActivity {
     private void obtenerLista() {
         listaInformacion = new ArrayList<String>();
 
-        for (int i=0; i<listaMaterial.size(); i++){
-            listaInformacion.add("Nombre: " + listaMaterial.get(i).getNombre() + " | Cantidad: " + listaMaterial.get(i).getCantidad() + " | Tipo: " + listaMaterial.get(i).getTipo());
+        for (int i=0; i<listaProducto.size(); i++){
+            listaInformacion.add("Nombre: " + listaProducto.get(i).getNombre() + " | Cantidad: " + listaProducto.get(i).getCantidad() + " | Tipo: " + listaProducto.get(i).getTipo());
         }
     }
 }

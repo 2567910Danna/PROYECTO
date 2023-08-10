@@ -39,7 +39,7 @@ public class RegistrarProducto extends AppCompatActivity implements View.OnClick
         spinner.setAdapter(adapter);
     }
 
-    private void registrarMaterail(){
+    private void registrarProdducto(){
         SQLUtilities conexion = new SQLUtilities(this, "Material", null,1);
         SQLiteDatabase db = conexion.getWritableDatabase();
 
@@ -84,7 +84,7 @@ public class RegistrarProducto extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        registrarMaterail();
+        registrarProdducto();
 
     }
 }

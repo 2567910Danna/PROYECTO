@@ -12,20 +12,21 @@ import android.widget.Button;
 
     public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-        private Button btnReg , btnBu, btnLi;
+        private Button btnReg , btnBu, btnLi ;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            btnReg = (Button)findViewById(R.id.btnReg);
-            btnBu = (Button)findViewById(R.id.btnBu);
-            btnLi = (Button)findViewById(R.id.btnLi);
+            btnReg = findViewById(R.id.btnReg);
+            btnBu = findViewById(R.id.btnBu);
+            btnLi = findViewById(R.id.btnLi);
 
             btnReg.setOnClickListener(this);
             btnBu.setOnClickListener(this);
             btnLi.setOnClickListener(this);
+
             SQLUtilities conexion = new SQLUtilities(this, "Material", null, 1);
         }
 
@@ -74,6 +75,7 @@ import android.widget.Button;
                     Intent in3 = new Intent( MainActivity.this, ListarProductos.class);
                     startActivity(in3);
                     break;
+
             }
 
         }
